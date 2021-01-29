@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import injectContext from './store/appContext';
+import NotFound from "./views/notfound";
+import Home from './views/home';
+import { Navbar } from "./components/navbar"
+import { Character } from "./views/characters"
+import { Planets } from './views/planets';
+import { Naves } from './views/naves';
+import { Favoritos } from './views/misfavoritos';
+import {Footer} from "./components/footer"
 
-function App() {
+
+
+const App = props => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Navbar />
+      <div className="container h-100">
+      <Switch>
+        <Route exact path="/misfavoritos" component={Favoritos} />
+        <Route exact path="/planets" component={Planets} />
+        <Route exact path="/naves" component={Naves} />
+        <Route exact path="/characters" component={Character} />
+        <Route exact path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+      </div>  
+        <Footer />        
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default injectContext(App);
